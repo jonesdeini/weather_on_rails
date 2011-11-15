@@ -4,14 +4,14 @@ require 'rexml/document'
 class HomeController < ApplicationController
 
   def index
-    split_up_zipcodes
+    #split_up_zipcodes
   end
 
 def split_up_zipcodes
   file = File.new('zipcodes')
   strings = file.first.split("\" \"")
   strings.each{|str| str.chomp!}
-  strings.each{|str| send_later(:get_the_info(str))}
+  strings.each{|str| get_the_info str }
 end
 
 def get_the_info(string)
