@@ -1,6 +1,11 @@
 class LocationsController < ApplicationController
 
-  def new
+  def index
+    @location = Location.all
+  end
+
+
+  def create
     @location = Location.find params[:id]
     if ! @location.nil?
       url = "http://xml.weather.yahoo.com/forecastrss?p=" + params[:id] + "&u=f"
@@ -11,10 +16,16 @@ class LocationsController < ApplicationController
         state = ele.attributes["region"]   
         Location.create!(:zip => string.to_i, :state =>state, :city => city)
       end
+    else
+       render :nothing => true
     end
   end
 
   def show
-    @location = Location.find params[:id]
+    #this is a pretty shitty way to handle this
+    @location = Location.find_by_zip params[:id]
+    if @location.nil?
+      @location = Location.find params[:id]
+    end
   end
 end

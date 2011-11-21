@@ -1,8 +1,6 @@
 WeatherOnRails::Application.routes.draw do
   resources :locations
-
-  match '/locations' => 'locations#index'
-  match '/locations/new' => 'locations#create'
+  match '/locations/create' => 'locations#create'
 
   root :to => 'home#index'
 end
