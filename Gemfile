@@ -7,6 +7,7 @@ gem 'rails', '3.1.1'
 
 gem 'pg'
 
+gem 'therubyracer', :require => 'v8'
 
 # Gems used only for assets and not required
 # in production environments by default.
