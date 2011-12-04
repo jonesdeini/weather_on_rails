@@ -11,12 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111112211924) do
+ActiveRecord::Schema.define(:version => 20111204023936) do
 
   create_table "locations", :force => true do |t|
     t.integer  "zip"
     t.string   "city"
     t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "noaa_locations", :force => true do |t|
+    t.string   "station_id"
+    t.string   "state"
+    t.string   "station_name"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "xml_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
