@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  station_id: MyString
+  state: MyString
+  station_name: MyString
+  latitude: MyString
+  longitude: MyString
+  xml_url: MyString
+
+two:
+  station_id: MyString
+  state: MyString
+  station_name: MyString
+  latitude: MyString
+  longitude: MyString
+  xml_url: MyString
