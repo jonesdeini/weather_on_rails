@@ -21,7 +21,7 @@ namespace :db do
     @doc.elements.each("rss/channel/yweather:location") do |ele|
       city = ele.attributes["city"]
       state = ele.attributes["region"]   
-      Location.create!(:zip => string.to_i, :state =>state, :city => city)
+      Location.find_or_create_by_zip :zip => string.to_i, :state =>state, :city => city
     end
     print "."
   end
