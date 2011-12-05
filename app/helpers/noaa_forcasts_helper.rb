@@ -1,0 +1,2 @@
+module NoaaForcastsHelper
+end

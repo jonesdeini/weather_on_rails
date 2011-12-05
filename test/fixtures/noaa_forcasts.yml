@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  observation_time: MyString
+  weather: MyString
+  temp_f: MyString
+  relative_humidity: MyString
+  wind_dir: MyString
+  wind_degrees: MyString
+  wind_mph: MyString
+  wind_gust_mph: MyString
+  pressure_mb: MyString
+  dewpoint_f: MyString
+  windchill_f: MyString
+  visibility_mi: MyString
+
+two:
+  observation_time: MyString
+  weather: MyString
+  temp_f: MyString
+  relative_humidity: MyString
+  wind_dir: MyString
+  wind_degrees: MyString
+  wind_mph: MyString
+  wind_gust_mph: MyString
+  pressure_mb: MyString
+  dewpoint_f: MyString
+  windchill_f: MyString
+  visibility_mi: MyString

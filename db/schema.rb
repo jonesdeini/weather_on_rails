@@ -11,12 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111204023936) do
+ActiveRecord::Schema.define(:version => 20111205020003) do
 
   create_table "locations", :force => true do |t|
     t.integer  "zip"
     t.string   "city"
     t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "noaa_forcasts", :force => true do |t|
+    t.string   "observation_time"
+    t.string   "weather"
+    t.string   "temp_f"
+    t.string   "relative_humidity"
+    t.string   "wind_dir"
+    t.string   "wind_degrees"
+    t.string   "wind_mph"
+    t.string   "wind_gust_mph"
+    t.string   "pressure_mb"
+    t.string   "dewpoint_f"
+    t.string   "windchill_f"
+    t.string   "visibility_mi"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
