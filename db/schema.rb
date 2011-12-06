@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111205020003) do
+ActiveRecord::Schema.define(:version => 20111205183111) do
 
   create_table "locations", :force => true do |t|
     t.integer  "zip"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20111205020003) do
     t.string   "visibility_mi"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "noaa_location_id"
   end
 
   create_table "noaa_locations", :force => true do |t|
