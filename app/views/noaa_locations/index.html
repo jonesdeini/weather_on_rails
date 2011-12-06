@@ -11,7 +11,7 @@
   <tr>
     <td><%= location.station_name %></td>
     <td><%= location.state %></td>
-    <td><%= link_to 'Show', location %></td>
+    <td><%= link_to 'Weather', noaa_location_noaa_forcast_path(location, 1) %></td>
   </tr>
 <% end %>
 </table>

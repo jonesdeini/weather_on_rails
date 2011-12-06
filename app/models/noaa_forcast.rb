@@ -21,4 +21,5 @@
 #
 
 class NoaaForcast < ActiveRecord::Base
+  belongs_to :noaa_locations
 end

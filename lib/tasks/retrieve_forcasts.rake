@@ -13,7 +13,7 @@ namespace :db do
       if xml_data.include? "observation_time"
         @doc = REXML::Document.new(xml_data)
         if @doc.root.elements["weather"].nil?
-            print location.id.to_s, " is fd up"
+            print "\n ", location.xml_url, " \n"
         end
         new_forcast = NoaaForcast.new(
           :observation_time => @doc.root.elements["observation_time"].text,
@@ -30,7 +30,9 @@ namespace :db do
           :visibility_mi => @doc.root.elements["visibility_mi"] ? @doc.root.elements["visibility_mi"].text : nil,
           :noaa_location_id => location.id
         )
-        new_forcast.save and puts location.id.to_s
+        new_forcast.save and print "*"
+      else
+        print "."
       end
     }
   end

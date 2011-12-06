@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>Forcast</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @forcast.each do |f| %>
+  <tr>
+    <td><%= f.observation_time %></td>
+    <td><%= f.weather %></td>
+    <td><%#= link_to 'Show', location %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

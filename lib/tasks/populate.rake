@@ -10,10 +10,10 @@ namespace :db do
     file = File.new('zipcodes')
     strings = file.first.split("\" \"")
     strings.each{|str| str.chomp!}
-    strings.each{|str| get_the_info str}
+    strings.each{|str| create_location str}
   end
 
-  def get_the_info(string)
+  def create_location(string)
     sleep 1.5
     url = "http://xml.weather.yahoo.com/forecastrss?p=" + string + "&u=f"
     xml_data = Net::HTTP.get_response(URI.parse(url)).body
