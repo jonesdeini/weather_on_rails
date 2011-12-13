@@ -3,7 +3,7 @@ WeatherOnRails::Application.routes.draw do
   resources :noaa_locations do
     resources :noaa_forcasts
   end
-  match '/locations/create' => 'locations#create'
+  match "*path" => 'error#handle404'
   
   root :to => 'home#index'
 end
