@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111205183111) do
+ActiveRecord::Schema.define(:version => 20120111213634) do
+
+  create_table "forcasts", :force => true do |t|
+    t.integer  "low"
+    t.integer  "high"
+    t.integer  "current"
+    t.string   "condition"
+    t.string   "current_condition"
+    t.integer  "current_condition_code"
+    t.integer  "condition_code"
+    t.string   "date_of_forcast"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "locations", :force => true do |t|
     t.integer  "zip"

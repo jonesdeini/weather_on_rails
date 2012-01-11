@@ -7,33 +7,24 @@ namespace :db do
   end
 
   def retrieve_forcast
-    NoaaLocation.all.each{|location|
-      url = location.xml_url
+    Location.all.each do |location|
+      url ="http://xml.weather.yahoo.com/forecastrss?p=" + location.zip.to_s + "&u=f"
       xml_data = Net::HTTP.get_response(URI.parse(url)).body
-      if xml_data.include? "observation_time"
-        @doc = REXML::Document.new(xml_data)
-        if @doc.root.elements["weather"].nil?
-            print "\n ", location.xml_url, " \n"
-        end
-        new_forcast = NoaaForcast.new(
-          :observation_time => @doc.root.elements["observation_time"].text,
-          :weather => @doc.root.elements["weather"] ? @doc.root.elements["weather"].text : "A Few Clouds",
-          :temp_f => @doc.root.elements["temp_f"] ? @doc.root.elements["temp_f"].text : nil,
-          :relative_humidity => @doc.root.elements["relative_humidity"] ? @doc.root.elements["relative_humidity"].text : nil,
-          :wind_dir => @doc.root.elements["wind_dir"] ? @doc.root.elements["wind_dir"].text : nil,
-          :wind_degrees => @doc.root.elements["wind_degrees"] ? @doc.root.elements["wind_degrees"].text : nil,
-          :wind_mph => @doc.root.elements["wind_mph"] ? @doc.root.elements["wind_mph"].text : nil,
-          :wind_gust_mph => @doc.root.elements["wind_gust_mph"] ? @doc.root.elements["wind_gust_mph"].text : nil,
-          :pressure_mb => @doc.root.elements["pressure_mb"] ? @doc.root.elements["pressure_mb"].text : nil,
-          :dewpoint_f => @doc.root.elements["dewpoint_f"] ? @doc.root.elements["dewpoint_f"].text : nil,
-          :windchill_f => @doc.root.elements["windchill_f"] ? @doc.root.elements["windchill_f"].text : nil ,
-          :visibility_mi => @doc.root.elements["visibility_mi"] ? @doc.root.elements["visibility_mi"].text : nil,
-          :noaa_location_id => location.id
-        )
-        new_forcast.save and print "*"
-      else
-        print "."
+      @doc = REXML::Document.new(xml_data)
+      new_forcast = Forcast.new
+      @doc.elements.each("rss/channel/yweather:location") do |ele|
+        new_forcast.current_condition = ele.attributes["text"]
+        new_forcast.current_condition_code = ele.attributes["code"]
+        new_forcast.current = ele.attributes["temp"]
+        new_forcast.date_of_forcast = ele.attributes["date"]
       end
-    }
+      @doc.elements.each("rss/channel/yweather:forecast") do |ele|
+        new_forcast.low = ele.attributes["low"]
+        new_forcast.high = ele.attributes["high"]
+        new_forcast.condition = ele.attributes["text"]
+        new_forcast.condition_code = ele.attributes["code"]
+      end
+      new_forcast.save and print "."
+    end
   end
 end

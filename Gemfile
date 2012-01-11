@@ -11,6 +11,8 @@ gem 'therubyracer', :require => 'v8'
 
 gem 'whenever', :require => false
 
+gem 'knnball', :require => false
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
