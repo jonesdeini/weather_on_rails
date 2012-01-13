@@ -11,4 +11,6 @@
 #
 
 class Location < ActiveRecord::Base
+has_many :forcasts
+
 end

@@ -13,6 +13,7 @@ namespace :db do
       xml_data = Net::HTTP.get_response(URI.parse(url)).body
       @doc = REXML::Document.new(xml_data)
       new_forcast = Forcast.new
+      new_forcast.location_id = location.id
       @doc.elements.each("rss/channel/item/yweather:condition") do |ele|
         new_forcast.current_condition = ele.attributes["text"]
         new_forcast.current_condition_code = ele.attributes["code"]

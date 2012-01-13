@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111213634) do
+ActiveRecord::Schema.define(:version => 20120113015906) do
 
   create_table "forcasts", :force => true do |t|
     t.integer  "low"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120111213634) do
     t.string   "date_of_forcast"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "location_id"
   end
 
   create_table "locations", :force => true do |t|

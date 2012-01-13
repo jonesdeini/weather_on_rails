@@ -27,5 +27,6 @@ class LocationsController < ApplicationController
     if @location.nil?
       @location = Location.find params[:id]
     end
+    @forcasts = Forcast.find_all_by_location_id @location.id
   end
 end

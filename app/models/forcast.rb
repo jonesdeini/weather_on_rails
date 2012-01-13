@@ -16,4 +16,5 @@
 #
 
 class Forcast < ActiveRecord::Base
+  belongs_to :locations
 end
