@@ -1,2 +1,6 @@
 <%= @location.city %>, <%= @location.state %>
-
+<h1> What's the weather like bro? </h1>
+<% @forcasts.each do |forcast| %>
+  <br/>
+  <%= forcast.current_condition %>
+<% end %>

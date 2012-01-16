@@ -1,12 +1,12 @@
 namespace :db do
   desc "Generate forcast records"
-  task :retrieve_forcasts => :environment do
+  task :retrieve_noaa_forcasts => :environment do
     require 'net/http'
     require 'rexml/document'
-    retrieve_forcast
+    retrieve_noaa_forcast
   end
 
-  def retrieve_forcast
+  def retrieve_noaa_forcast
     NoaaLocation.all.each{|location|
       url = location.xml_url
       xml_data = Net::HTTP.get_response(URI.parse(url)).body
