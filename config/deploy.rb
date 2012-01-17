@@ -32,12 +32,12 @@ namespace :db do
   end
 end  
 
-namespace :deploy do
-  desc "restart thin"
-  task :restart do
-    "thin restart"
-  end
-end
+#namespace :deploy do
+#  desc "restart thin"
+#  task :restart do
+#    "thin restart"
+#  end
+#end
   
 after "deploy:finalize_update", "db:db_config"
 #after "deploy:restart"
