@@ -26,18 +26,18 @@ set :deploy_via, :remote_cache
 
 ssh_options[:forward_agent] = true
 
-namespace :deploy do
-  desc "restart thin"
-  task :restart do
-    "bundle exec thin restart"
-  end
-end
-
 namespace :db do  
   task :db_config, :except => { :no_release => true }, :role => :app do  
     run "cp -f ~/weather_on_rails/config/database.yml #{release_path}/config/database.yml"  
   end
 end  
+
+namespace :deploy do
+  desc "restart thin"
+  task :restart do
+    "thin restart"
+  end
+end
   
 after "deploy:finalize_update", "db:db_config"
 #after "deploy:restart"
