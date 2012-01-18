@@ -13,7 +13,7 @@ gem 'whenever', :require => false
 
 gem 'knnball', :require => false
 
-gem 'thin'
+#gem 'thin'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

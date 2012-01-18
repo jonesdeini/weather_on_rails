@@ -3,7 +3,7 @@
 #set :rvm_ruby_string, '1.9.3@weather_on_rails'        # Or whatever env you want it to run in.
 
 require "bundler/capistrano"
-require "./config/capistrano_database_yml"
+#require "./config/capistrano_database_yml"
 
 set :application, "weather_on_rails"
 set :deploy_to, "/var/www/weather_on_rails"
@@ -33,6 +33,13 @@ namespace :deploy do
   end
 end
 
+namespace :db do  
+  task :db_config, :except => { :no_release => true }, :role => :app do  
+    run "cp -f ~/weather_on_rails/config/database.yml #{release_path}/config/database.yml"  
+  end
+end  
+  
+after "deploy:finalize_update", "db:db_config"
 #after "deploy:restart"
 
 # If you are using Passenger mod_rails uncomment this:
