@@ -3,6 +3,7 @@
 #set :rvm_ruby_string, '1.9.3@weather_on_rails'        # Or whatever env you want it to run in.
 
 require "bundler/capistrano"
+require "./config/capistrano_database_yml"
 
 set :application, "weather_on_rails"
 set :deploy_to, "/var/www/weather_on_rails"
@@ -28,11 +29,11 @@ ssh_options[:forward_agent] = true
 namespace :deploy do
   desc "restart thin"
   task :restart do
-    "thin restart"
+    "bundle exec thin restart"
   end
 end
 
-after "deploy"
+#after "deploy:restart"
 
 # If you are using Passenger mod_rails uncomment this:
 # namespace :deploy do
