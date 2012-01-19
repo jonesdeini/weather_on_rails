@@ -35,10 +35,10 @@ gem 'jquery-rails'
 gem 'capistrano'
 
 #gems it bitches for
-gem 'highline', '~> 1.6.9'
-gem 'net-ssh', '~> 2.2.2'
-gem 'net-scp', '~> 1.0.4'
-gem 'net-sftp', '~> 2.0.5'
+#gem 'highline', '~> 1.6.9'
+#gem 'net-ssh', '~> 2.2.2'
+#gem 'net-scp', '~> 1.0.4'
+#gem 'net-sftp', '~> 2.0.5'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
