@@ -1,52 +1,42 @@
-#$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
-#require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-#set :rvm_ruby_string, '1.9.3@weather_on_rails'        # Or whatever env you want it to run in.
-
 require "bundler/capistrano"
-#require "./config/capistrano_database_yml"
 
 set :application, "weather_on_rails"
 set :deploy_to, "/var/www/weather_on_rails"
-set :repository,  "git@github.com:jones-deini/weather_on_rails.git"
 
-set :scm, "git"
-set :user, "root"
-
-#role :web, "jonesdeini.com"                          # Your HTTP server, Apache/etc
-#role :app, "jonesdeini.com"                          # This may be the same as your `Web` server
-#role :db,  "jonesdeini.com", :primary => true # This is where Rails migrations will run
-
-role :web, "184.73.157.166"                          # Your HTTP server, Apache/etc
-role :app, "184.73.157.166"                          # This may be the same as your `Web` server
-role :db,  "184.73.157.166", :primary => true # This is where Rails migrations will run
-
+set :scm, :git
+set :repository,  "git@github.com:jonesdeini/weather_on_rails.git"
 set :branch, "master"
 
-set :deploy_via, :remote_cache
+set :location, "184.73.157.166"
+role :app, location
+role :web, location
+role :db, location
 
+set :user, "root"
+set :deploy_via, :remote_cache
+#ssh_options[:keys] = [File.join(ENV["HOME"], "ssh", "id_rsa")]
+ssh_options[:keys] = ["#{ENV['HOME']}/r0bj0n3s99.pem"]
 ssh_options[:forward_agent] = true
+default_run_options[:pty] = true
+default_run_options[:shell] = false
 
 namespace :db do  
   task :db_config, :except => { :no_release => true }, :role => :app do  
-    run "cp -f ~/weather_on_rails/config/database.yml #{release_path}/config/database.yml"  
+    run "cp -f ./config/database.yml #{release_path}/config/database.yml"  
   end
 end  
 
 namespace :deploy do
+  task :precompile, :role => :app do
+    run "cd #{release_path}/ && rake assets:precompile"
+  end
+
   desc "restart thin"
   task :restart_thin do
-    "thin restart"
+    "thin restart -d"
   end
 end
   
-after "deploy:finalize_update", "db:db_config"
+after "deploy:precompile", "db:db_config", "deploy:restart_thin"
+#after "deploy:finalize_update", "deploy:precompile", "db:db_config"
 #after "deploy:restart_thin"
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end

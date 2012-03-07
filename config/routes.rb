@@ -1,4 +1,7 @@
 WeatherOnRails::Application.routes.draw do
+  match "/cat_facts", :to => "cat_facts#index"
+  resources :victims
+
   resources :locations
   resources :noaa_locations do
     resources :noaa_forcasts
