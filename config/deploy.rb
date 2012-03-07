@@ -22,7 +22,7 @@ default_run_options[:shell] = false
 
 namespace :db do  
   task :db_config, :except => { :no_release => true }, :role => :app do  
-    run "cp -f ./config/database.yml #{release_path}/config/database.yml"  
+    run "cp -f ~/weather_on_rails/config/database.yml #{release_path}/config/database.yml"  
   end
 end  
 
@@ -33,7 +33,7 @@ namespace :deploy do
 
   desc "restart thin"
   task :restart_thin do
-    "thin restart -d"
+    "bundle exec thin restart -d"
   end
 end
   
