@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120113015906) do
+ActiveRecord::Schema.define(:version => 20120303020113) do
 
   create_table "forcasts", :force => true do |t|
     t.integer  "low"
@@ -60,6 +60,12 @@ ActiveRecord::Schema.define(:version => 20120113015906) do
     t.string   "latitude"
     t.string   "longitude"
     t.string   "xml_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "victims", :force => true do |t|
+    t.integer  "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
