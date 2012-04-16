@@ -13,6 +13,7 @@
 #  date_of_forcast        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  location_id            :integer
 #
 
 class Forcast < ActiveRecord::Base

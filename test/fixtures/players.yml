@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  steam_id: MyString
+  crate_19: 
+
+two:
+  steam_id: MyString
+  crate_19: 
