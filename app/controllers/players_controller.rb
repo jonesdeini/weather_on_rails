@@ -6,7 +6,7 @@ require 'xxl_scraper'
   end 
 
   def create
-    Delayed::Job.enqueue XXL_Scraper.new
+    XXL_Scraper.scrape
     render :index
   end
 

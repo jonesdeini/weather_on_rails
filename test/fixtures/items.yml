@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: items
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  image       :string(255)
+#  defindex    :integer
+#  float_value :float
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  image: MyString
+  defindex: 1
+  float_value: 1.5
+
+two:
+  name: MyString
+  image: MyString
+  defindex: 1
+  float_value: 1.5

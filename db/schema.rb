@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120416015203) do
+ActiveRecord::Schema.define(:version => 20120429014847) do
 
   create_table "bp_searches", :force => true do |t|
     t.datetime "created_at"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(:version => 20120416015203) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "location_id"
+  end
+
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.string   "image"
+    t.integer  "defindex"
+    t.float    "float_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "locations", :force => true do |t|
@@ -87,11 +96,11 @@ ActiveRecord::Schema.define(:version => 20120416015203) do
 
   create_table "players", :force => true do |t|
     t.string   "steam_id"
-    t.boolean  "crate_19"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.string   "avatar"
+    t.integer  "bit_column", :limit => 8
   end
 
   create_table "victims", :force => true do |t|

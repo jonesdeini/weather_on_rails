@@ -1,5 +1,0 @@
-  * executing `invoke'
-  * executing "ssh 184.73.157.166"
-    servers: ["184.73.157.166"]
-    [184.73.157.166] executing command
-*** [err :: 184.73.157.166] Pseudo-terminal will not be allocated because stdin is not a terminal.
