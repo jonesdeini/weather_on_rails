@@ -24,7 +24,7 @@ class Player < ActiveRecord::Base
   GET_PLAYER_INFO_API_CALL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key="
 
   def get_player_info
-    url = GET_PLAYER_INFO_API_CALL + APP_CONFIG["api_key"] + "&steam_ids=#{steam_id}"
+    url = GET_PLAYER_INFO_API_CALL + APP_CONFIG["api_key"] + "&steamids=#{steam_id}"
     raw_json = Net::HTTP.get_response(URI.parse(url)).body
     json = JSON.parse raw_json
     json["response"]["players"].each do |player|

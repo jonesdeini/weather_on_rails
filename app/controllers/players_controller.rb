@@ -6,7 +6,7 @@ require 'xxl_scraper'
   end 
 
   def create
-    XXL_Scraper.scrape
+    XxlScraper.scrape
     render :index
   end
 
