@@ -30,12 +30,12 @@ class BP_Search
             players_item["attributes"].each do |attrib|
               if attrib["float_value"] == wanted_item.float_value
                 p = Player.find_or_create_by_steam_id :steam_id => @steam_id 
-                p.items.create wanted_item
+                p.inventories.create :item => wanted_item
               end
             end
           else
             p = Player.find_or_create_by_steam_id :steam_id => @steam_id 
-            p.items.create wanted_item
+            p.inventories.create :item => wanted_item
           end
         end
       end

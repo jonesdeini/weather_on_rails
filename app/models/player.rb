@@ -17,8 +17,9 @@ class Player < ActiveRecord::Base
   #callbacks
   after_create :get_player_info
 
-  #relations
-  has_many :items
+  #associations
+  has_many :inventories
+  has_many :items, :through => :inventories
   
   #constants
   GET_PLAYER_INFO_API_CALL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key="
