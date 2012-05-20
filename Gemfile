@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 # gem 'bcrypt-ruby', '~> 3.0.0' # To use ActiveModel has_secure_password
 gem 'capistrano'
 gem 'delayed_job_active_record'
+gem 'haml'
 gem 'jquery-rails'
 gem 'knnball', :require => false
 gem 'rails', '3.1.1'
