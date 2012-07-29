@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120517012628) do
+ActiveRecord::Schema.define(:version => 20120729033032) do
 
   create_table "bp_searches", :force => true do |t|
     t.datetime "created_at"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20120517012628) do
     t.float    "float_value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
+    t.integer  "quality"
   end
 
   create_table "locations", :force => true do |t|
