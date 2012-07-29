@@ -17,7 +17,7 @@ class BP_Search
     json = JSON.parse raw_json
     if json["result"]["status"] == 1
       Item.all.each do |item|
-        item.search json
+        item.search json, @steam_id
       end
     end
   end
