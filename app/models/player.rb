@@ -14,14 +14,17 @@
 class Player < ActiveRecord::Base
   require 'net/http' 
 
-  #callbacks
+  # callbacks
   after_create :get_player_info
 
-  #associations
+  # associations
   has_many :inventories
   has_many :items, :through => :inventories
-  
-  #constants
+
+  # validations
+  validates_uniqueness_of :steam_id
+
+  # constants
   GET_PLAYER_INFO_API_CALL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key="
 
   def get_player_info

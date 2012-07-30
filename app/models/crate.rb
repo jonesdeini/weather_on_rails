@@ -6,13 +6,13 @@ class Crate < Item
         if players_item["attributes"]
           players_item["attributes"].each do |attrib|
             if attrib["float_value"] == float_value
-              p = Player.find_or_create_by_steam_id :steam_id => steam_id
-              p.inventories.create :item => self
+              return true
             end
           end
         end
       end
     end
+    return false
   end
 
 end

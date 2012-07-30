@@ -17,7 +17,10 @@ class BP_Search
     json = JSON.parse raw_json
     if json["result"]["status"] == 1
       Item.all.each do |item|
-        item.search json, @steam_id
+        if item.search json
+          p = Player.create :steam_id => @steam_id
+          p.inventories.create :item => item if p
+        end
       end
     end
   end
