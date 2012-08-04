@@ -16,8 +16,13 @@ class XxlScraper
       steam_idz = []
       playerinfo_id_list.each do |id|
         puts (PLAYER_INFO + id.first.to_s)
-        id_page = retrieve_source(PLAYER_INFO + id.first.to_s)
-        steam_idz << parse_source(id_page, STEAM_ID_REGEX)
+        EventMachine.run {
+          id_page = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
+          id_page.callback {
+            steam_idz << parse_source(id_page.response.body, STEAM_ID_REGEX)
+          }
+          EventMachine.stop
+        }
         print "*"
       end
       print "\n"
