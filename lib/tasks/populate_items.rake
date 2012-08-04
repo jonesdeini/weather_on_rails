@@ -1,7 +1,10 @@
 namespace :db do 
-  desc "populate items table"
-  task :populate_items => :environment do
-    list = YAML.load_file("#{Rails.root}/db/wishlist.yml")
+  task :populate_items => %w( populate_strange_festive_weapons )
+
+  desc "populating strange festive weapons"
+  task :populate_strange_festive_weapons => :environment do |task|
+    puts task.full_comment
+    list = YAML.load_file("#{Rails.root}/db/strange_festives.yml")
     list.each do |item|
       new_item = Item.find_or_create_by_name \
         :name => item.first,
