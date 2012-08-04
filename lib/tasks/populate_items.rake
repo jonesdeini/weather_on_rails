@@ -6,10 +6,9 @@ namespace :db do
     puts task.full_comment
     list = YAML.load_file("#{Rails.root}/db/strange_festives.yml")
     list.each do |item|
-      new_item = Item.find_or_create_by_name \
+      new_item = StrangeItem.find_or_create_by_name \
         :name => item.first,
-        :defindex => item.last["defindex"],
-        :type => item.last["type"]
+        :defindex => item.last["defindex"]
       new_item.quality = item.last["quality"].to_f if item.last["quality"]
       new_item.float_value = item.last["float_value"].to_f if item.last["float_value"]
       new_item.save
