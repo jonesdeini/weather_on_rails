@@ -9,24 +9,25 @@ class XxlScraper
   class << self
 
     def scrape
-      url = "http://xxlgamers.gameme.com/tf"
+      #url = "http://xxlgamers.gameme.com/tf"
+      url = "http://xxlgamers.gameme.com/overview/17"
       page = retrieve_source(url)
       playerinfo_id_list = parse_source(page, PLAYER_LIST_REGEX)
       puts "parsed player info ids"
       steam_idz = []
       playerinfo_id_list.each do |id|
-        puts (PLAYER_INFO + id.first.to_s)
         EventMachine.run {
           id_page = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
+          id_page.errback { puts "uh oh"; EM.stop }
           id_page.callback {
+            puts "anything"
             steam_idz << parse_source(id_page.response.body, STEAM_ID_REGEX)
+            EventMachine.stop
           }
-          EventMachine.stop
         }
-        print "*"
       end
-      print "\n"
-      steam_idz.each do |steam_id| 
+      print steam_idz.count
+      steam_idz.each do |steam_id|
         if steam_id.any?
           bp = BP_Search.new steam_id.first.first
         end
@@ -39,6 +40,7 @@ class XxlScraper
     #handle_asynchronously :retrieve_source
 
     def parse_source(page, regexp)
+      puts "i got called"
       player_info_id = page.scan regexp
       player_info_id.compact.uniq
     end
