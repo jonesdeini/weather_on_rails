@@ -20,8 +20,7 @@ class XxlScraper
           id_page = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
           id_page.errback { puts "uh oh"; EM.stop }
           id_page.callback {
-            puts "anything"
-            steam_idz << parse_source(id_page.response.body, STEAM_ID_REGEX)
+            steam_idz << parse_source(id_page.response, STEAM_ID_REGEX)
             EventMachine.stop
           }
         }
@@ -37,10 +36,8 @@ class XxlScraper
     def retrieve_source(url)
       Net::HTTP.get_response(URI.parse(url)).body
     end
-    #handle_asynchronously :retrieve_source
 
     def parse_source(page, regexp)
-      puts "i got called"
       player_info_id = page.scan regexp
       player_info_id.compact.uniq
     end
