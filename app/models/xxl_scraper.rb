@@ -15,21 +15,17 @@ class XxlScraper
       playerinfo_id_list = parse_source(page, PLAYER_LIST_REGEX)
       puts "parsed player info ids"
       steam_idz = []
-      playerinfo_id_list.each do |id|
+      playerinfo_id_list.each_with_index do |id, index|
         EventMachine.run {
+          puts "thread #{index} started"
           id_page = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
-          id_page.errback { puts "uh oh"; EM.stop }
+          id_page.errback { puts "xxl error"; EM.stop }
           id_page.callback {
-            steam_idz << parse_source(id_page.response, STEAM_ID_REGEX)
+            BP_Search.new (parse_source(id_page.response, STEAM_ID_REGEX)).first.first
+            puts "thread #{index} stopping"
             EventMachine.stop
           }
         }
-      end
-      print steam_idz.count
-      steam_idz.each do |steam_id|
-        if steam_id.any?
-          bp = BP_Search.new steam_id.first.first
-        end
       end
     end
 
