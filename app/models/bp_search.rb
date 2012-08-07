@@ -14,9 +14,9 @@ class BP_Search
   def retrieve_items
     url = API_CALL + APP_CONFIG["api_key"] + "&steamid=#{@steam_id}"
     raw_json = EventMachine::HttpRequest.new(url).get
-    raw_json.errback { puts "steam api error"; EM.stop }
-    raw_json.callback do
-      json = JSON.parse raw_json
+    raw_json.errback { puts "steam api error" }
+    raw_json.callback {
+      json = JSON.parse raw_json.response
       if json["result"]["status"] == 1
         Item.all.each do |item|
           if item.search json
@@ -28,7 +28,7 @@ class BP_Search
           end
         end
       end
-    end
+    }
   end
 
 end
