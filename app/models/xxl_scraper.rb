@@ -19,7 +19,7 @@ class XxlScraper
         playerinfo_id_list.each_with_index do |id, index|
           id_page = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
           puts "request #{index} started"
-          id_page.errback { puts "request #{index} xxl error", EM.stop }
+          id_page.errback { puts "request #{index} xxl error"; EM.stop }
           id_page.callback {
             puts "request #{index} callback"
             BP_Search.new (parse_source(id_page.response, STEAM_ID_REGEX)).first.first
