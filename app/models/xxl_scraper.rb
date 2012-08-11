@@ -15,19 +15,22 @@ class XxlScraper
       playerinfo_id_list = parse_source(page, PLAYER_LIST_REGEX)
       puts "parsed player info ids"
       steam_idz = []
+      id_page = []
       EM.run {
         playerinfo_id_list.each_with_index do |id, index|
-          id_page = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
+          id_page[index] = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
           puts "request #{index} started"
-          id_page.errback { puts "request #{index} xxl error"; EM.stop }
-          id_page.callback {
+          id_page[index].errback { puts "request #{index} xxl error"; EM.stop }
+          id_page[index].callback {
             puts "request #{index} callback"
-            BP_Search.new (parse_source(id_page.response, STEAM_ID_REGEX)).first.first
+            #BP_Search.new (parse_source(id_page.response, STEAM_ID_REGEX)).first.first
+            steam_idz << parse_source(id_page[index].response, STEAM_ID_REGEX)
             puts "request #{index} stopping"
             EM.stop
           }
         end
       }
+      puts steam_idz.count
     end
 
     def retrieve_source(url)

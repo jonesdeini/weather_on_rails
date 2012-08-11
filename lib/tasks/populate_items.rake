@@ -1,12 +1,10 @@
 namespace :db do 
   task :populate_items => %w( populate_strange_festive_weapons )
 
-  desc "populating strange festive weapons"
-  task :populate_strange_festive_weapons => :environment do |task|
-    puts task.full_comment
-    list = YAML.load_file("#{Rails.root}/db/strange_festives.yml")
+  def populator(yml_file, klass)
+    list = YAML.load_file("#{Rails.root}/db/#{yml_file}")
     list.each do |item|
-      new_item = StrangeItem.find_or_create_by_name \
+      new_item = klass.find_or_create_by_name \
         :name => item.first,
         :defindex => item.last["defindex"]
       new_item.quality = item.last["quality"].to_f if item.last["quality"]
@@ -15,5 +13,29 @@ namespace :db do
       puts new_item.name
     end
   end
-end
 
+  desc "populating strange festive weapons"
+  task :populate_strange_festive_weapons => :environment do |task|
+    puts task.full_comment
+    populator("strange_festives.yml", StrangeItem)
+  end
+
+  desc "populating hats"
+  task :populate_hats => :environment do |task|
+    puts task.full_comment
+    populator("hats.yml", Hat)
+  end
+
+  desc "populating paints"
+  task :populate_paints => :environment do |task|
+    puts task.full_comment
+    populator("paints.yml", Paint)
+  end
+
+  desc "populating crates"
+  task :populate_crates => :environment do |task|
+    puts task.full_comment
+    populator("crates.yml", Crate)
+  end
+
+end
