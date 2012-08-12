@@ -23,7 +23,9 @@ module ItemSearch
   def crate_search(json, item)
     json["result"]["items"].each do |players_item|
       if players_item["defindex"] == item.defindex
-        return true
+        if players_item["attributes"]
+          return true if players_item["attributes"]["float_value"] == item.float_value
+        end
       end
     end
     return false
