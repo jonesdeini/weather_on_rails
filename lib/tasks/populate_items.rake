@@ -38,4 +38,10 @@ namespace :db do
     populator("crates.yml", Crate)
   end
 
+  desc "populating meet the pyro items"
+  task :populate_crates => :environment do |task|
+    puts task.full_comment
+    populator("meet_the_pyro.yml", Item)
+  end
+
 end

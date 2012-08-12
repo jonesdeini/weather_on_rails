@@ -3,8 +3,6 @@ source 'http://rubygems.org'
 # gem 'bcrypt-ruby', '~> 3.0.0' # To use ActiveModel has_secure_password
 gem 'capistrano'
 gem 'delayed_job_active_record'
-gem 'eventmachine'
-gem 'em-http-request'
 gem 'haml'
 gem 'jquery-rails'
 gem 'knnball', :require => false
@@ -13,7 +11,9 @@ gem 'pg'
 # gem 'ruby-debug19', :require => 'ruby-debug' # for debugger
 gem 'therubyracer', :require => 'v8'
 gem 'thin'
+gem 'typhoeus'
 gem 'whenever', :require => false
+gem 'wirble'
 
 # Gems used only for assets and not required
 # in production environments by default.

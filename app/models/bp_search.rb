@@ -1,25 +1,26 @@
 require 'net/http'
-require 'json'
+require 'typhoeus'
 
 class BP_Search
 
   API_CALL = "http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001/?key="
 
   attr_accessor :steam_id
-  def initialize(steam_id)
+  def initialize(steam_id, hydra, index)
+    @hydra = hydra
+    @index = index
     @steam_id = steam_id
     retrieve_items
   end
 
   def retrieve_items
     url = API_CALL + APP_CONFIG["api_key"] + "&steamid=#{@steam_id}"
-    EM.run {
-      raw_json = EventMachine::HttpRequest.new(url).get
-      raw_json.errback { puts "steam api error"; EM.stop }
-      raw_json.callback {
-        json = JSON.parse raw_json.response
+    raw_json = Typhoeus::Request.new(url)
+    raw_json.on_complete do |response|
+      if response.success?
+        puts "searching #{@index} bp"
+        json = JSON.parse response.body
         if json["result"]["status"] == 1
-          puts "searching bp"
           Item.all.each do |item|
             if item.search json
               p = Player.new :steam_id => @steam_id
@@ -29,10 +30,12 @@ class BP_Search
               end
             end
           end
+        else
+          puts "steam oh noes!"
         end
-        EM.stop
-      }
-    }
+      end
+    end
+    @hydra.queue raw_json
   end
 
 end

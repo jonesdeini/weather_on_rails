@@ -1,4 +1,5 @@
 require 'net/http'
+require 'typhoeus'
 
 class XxlScraper
 
@@ -16,21 +17,25 @@ class XxlScraper
       puts "parsed player info ids"
       steam_idz = []
       id_page = []
-      EM.run {
-        playerinfo_id_list.each_with_index do |id, index|
-          id_page[index] = EventMachine::HttpRequest.new(PLAYER_INFO + id.first.to_s).get
-          puts "request #{index} started"
-          id_page[index].errback { puts "request #{index} xxl error"; EM.stop }
-          id_page[index].callback {
-            puts "request #{index} callback"
-            #BP_Search.new (parse_source(id_page.response, STEAM_ID_REGEX)).first.first
-            steam_idz << parse_source(id_page[index].response, STEAM_ID_REGEX)
-            puts "request #{index} stopping"
-            EM.stop
-          }
+      hydra = Typhoeus::Hydra.new
+      playerinfo_id_list.each_with_index do |id, index|
+        id_page[index] = Typhoeus::Request.new(PLAYER_INFO + id.first.to_s)
+        id_page[index].on_complete do |response|
+          if response.success?
+            puts "xxl request #{index} complete"
+            BP_Search.new (parse_source(id_page[index].response.body, STEAM_ID_REGEX)).first.first, hydra, index
+            #steam_idz << (parse_source(id_page[index].response.body, STEAM_ID_REGEX)).first.first
+          else
+            puts "oh noes!"
+          end
         end
-      }
-      puts steam_idz.count
+        hydra.queue id_page[index]
+      end
+      hydra.run
+#      puts steam_idz.count
+#      steam_idz.each do |steam_id|
+#        BP_Search.new(steam_id) unless steam_id.blank?
+#      end
     end
 
     def retrieve_source(url)
