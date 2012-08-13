@@ -23,6 +23,7 @@ class XxlScraper
         id_page[index].on_complete do |response|
           if response.success?
             puts "xxl request #{index} complete"
+            #puts (parse_source(id_page[index].response.body, STEAM_ID_REGEX)).first.first
             BP_Search.new (parse_source(id_page[index].response.body, STEAM_ID_REGEX)).first.first, hydra, index
             #steam_idz << (parse_source(id_page[index].response.body, STEAM_ID_REGEX)).first.first
           else
