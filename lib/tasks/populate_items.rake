@@ -1,5 +1,5 @@
 namespace :db do 
-  task :populate_items => %w( populate_strange_festive_weapons )
+  task :populate_items => %w( populate_meet_the_pyro_items )
 
   def populator(yml_file, klass)
     list = YAML.load_file("#{Rails.root}/db/#{yml_file}")
@@ -39,7 +39,7 @@ namespace :db do
   end
 
   desc "populating meet the pyro items"
-  task :populate_crates => :environment do |task|
+  task :populate_meet_the_pyro_items => :environment do |task|
     puts task.full_comment
     populator("meet_the_pyro.yml", Item)
   end
