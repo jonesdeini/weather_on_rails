@@ -31,8 +31,10 @@ class BP_Search
             end
           end
         else
-          puts "steam oh noes!"
+          puts "id: #{@steam_id} has a private bp"
         end
+      else
+        puts "steam oh noes!"
       end
     end
     @hydra.queue raw_json
